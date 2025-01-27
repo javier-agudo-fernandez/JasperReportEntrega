@@ -79,8 +79,8 @@ public class MainController {
 
         try {
             String url = "jdbc:mysql://localhost:3306/biblioteca";
-            String usuario = "pomboadmin";
-            String contraseña = "root";
+            String usuario = "root";
+            String contraseña = "";
             Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
             HashMap<String, Object> parametros = new HashMap<>();
 
