@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
+DROP DATABASE biblioteca;
 -- Volcando estructura de base de datos para biblioteca
 CREATE DATABASE IF NOT EXISTS `biblioteca` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci */;
 USE `biblioteca`;
@@ -41,6 +41,29 @@ INSERT INTO `usuario` (`id`, `dni`, `nombre`, `email`, `password`, `tipo`, `pena
 	(8, '77889900H', 'Elena Rojas', 'elena.rojas@example.com', 'password333', 'normal', NULL),
 	(9, '99001122I', 'Javier Gómez', 'javier.gomez@example.com', 'password444', 'normal', NULL),
 	(10, '10111213J', 'Marta Jiménez', 'marta.jimenez@example.com', 'password555', 'administrador', '2024-02-28');
+
+-- Volcando estructura para tabla biblioteca.libro
+CREATE TABLE IF NOT EXISTS `libro` (
+                                       `isbn` varchar(20) NOT NULL,
+    `titulo` varchar(200) DEFAULT NULL,
+    `autor` varchar(100) DEFAULT NULL,
+    PRIMARY KEY (`isbn`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- Volcando datos para la tabla biblioteca.libro: ~11 rows (aproximadamente)
+INSERT INTO `libro` (`isbn`, `titulo`, `autor`) VALUES
+('978-0-14-044913-6', 'The Odyssey', 'Homer'),
+('978-0-261-10236-4', 'The Hobbit', 'J.R.R. Tolkien'),
+('978-0-316-76948-8', 'The Girl with the Dragon Tattoo', 'Stieg Larsson'),
+('978-0-345-39180-3', 'A Game of Thrones', 'George R. R. Martin'),
+('978-0-452-28423-4', '1984', 'George Orwell'),
+('978-0-670-82162-4', 'The Catcher in the Rye', 'J.D. Salinger'),
+('978-0-7432-7356-5', 'Angels & Demons', 'Dan Brown'),
+('978-0-7432-7357-2', 'The Da Vinci Code', 'Dan Brown'),
+('978-0-7432-7358-9', 'Deception Point', 'Dan Brown'),
+('978-1-56731-340-7', 'To Kill a Mockingbird', 'Harper Lee'),
+('978-3-16-148410-0', 'El Quijote', 'Miguel de Cervantes');
+
 
 -- Volcando estructura para tabla biblioteca.ejemplar
 CREATE TABLE IF NOT EXISTS `ejemplar` (
@@ -86,27 +109,6 @@ INSERT INTO `ejemplar` (`id`, `isbn`, `estado`) VALUES
 	(30, '978-0-670-82162-4', 'Prestado'),
 	(31, '978-0-316-76948-8', 'Prestado');
 
--- Volcando estructura para tabla biblioteca.libro
-CREATE TABLE IF NOT EXISTS `libro` (
-  `isbn` varchar(20) NOT NULL,
-  `titulo` varchar(200) DEFAULT NULL,
-  `autor` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`isbn`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Volcando datos para la tabla biblioteca.libro: ~11 rows (aproximadamente)
-INSERT INTO `libro` (`isbn`, `titulo`, `autor`) VALUES
-	('978-0-14-044913-6', 'The Odyssey', 'Homer'),
-	('978-0-261-10236-4', 'The Hobbit', 'J.R.R. Tolkien'),
-	('978-0-316-76948-8', 'The Girl with the Dragon Tattoo', 'Stieg Larsson'),
-	('978-0-345-39180-3', 'A Game of Thrones', 'George R. R. Martin'),
-	('978-0-452-28423-4', '1984', 'George Orwell'),
-	('978-0-670-82162-4', 'The Catcher in the Rye', 'J.D. Salinger'),
-	('978-0-7432-7356-5', 'Angels & Demons', 'Dan Brown'),
-	('978-0-7432-7357-2', 'The Da Vinci Code', 'Dan Brown'),
-	('978-0-7432-7358-9', 'Deception Point', 'Dan Brown'),
-	('978-1-56731-340-7', 'To Kill a Mockingbird', 'Harper Lee'),
-	('978-3-16-148410-0', 'El Quijote', 'Miguel de Cervantes');
 
 -- Volcando estructura para tabla biblioteca.prestamo
 CREATE TABLE IF NOT EXISTS `prestamo` (
