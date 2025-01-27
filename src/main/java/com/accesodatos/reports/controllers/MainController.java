@@ -2,13 +2,19 @@ package com.accesodatos.reports.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
+import java.awt.*;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,15 +31,34 @@ public class MainController {
     @FXML private DatePicker fechaInicioPicker;
     @FXML private DatePicker fechaFinPicker;
     @FXML private Label labelParametros;
+    @FXML private VBox fondo;
+    @FXML private VBox contenido;
 
     private Stage stage;
 
     @FXML
     public void initialize() {
+        Image image = new Image("fondo.jpg");  // Cambia la ruta a la imagen
+
+        // Establecer la imagen como fondo
+        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundImage);
+        fondo.setBackground(background);  // Aplicar el fondo al VBox
+        DropShadow sombra = new DropShadow();
+        sombra.setRadius(30);  // Sin difuminado
+        sombra.setOffsetX(0); // Desplazamiento en X
+        sombra.setOffsetY(0);
+        // Desplazamiento en Y
+        sombra.setColor(Color.BLACK); // Color de la sombra (ajusta según prefieras)
+
+        // Aplicar la sombra al VBox
+        contenido.setEffect(sombra);
 
         comboReportes.getItems().addAll("LibMasPrestados", "PrestamosUsuario");
         comboReportes.getSelectionModel().selectFirst(); // Seleccionar el primer reporte por defecto
         manejarSeleccionReporte(); // Mostrar u ocultar los parámetros según el reporte seleccionado
+
     }
 
     @FXML
@@ -61,12 +86,12 @@ public class MainController {
 
             if ("PrestamosUsuario".equals(seleccion)) {
                 // Obtener valores de los campos y enviarlos como parámetros
-                parametros.put("ID_USUARIO", Integer.parseInt(idUsuarioField.getText()));
+                parametros.put("usuario_id", Integer.parseInt(idUsuarioField.getText()));
 
-                parametros.put("FECHA_INICIO", fechaInicioPicker.getValue() != null ?
+                parametros.put("fechaInicio", fechaInicioPicker.getValue() != null ?
                         Date.from(fechaInicioPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()) : null);
 
-                parametros.put("FECHA_FIN", fechaFinPicker.getValue() != null ?
+                parametros.put("fechaFin", fechaFinPicker.getValue() != null ?
                         Date.from(fechaFinPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()) : null);
             }
 

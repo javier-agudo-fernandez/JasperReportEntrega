@@ -4,6 +4,7 @@ module com.accesodatos.reports {
     requires net.sf.jasperreports.core;
     requires org.mariadb.jdbc;
     requires org.slf4j;
+    requires java.desktop;
 
 
     opens com.accesodatos.reports to javafx.fxml;
